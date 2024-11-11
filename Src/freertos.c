@@ -161,8 +161,12 @@ void StartDefaultTask(void const * argument)
 	uint32_t height_snake = 4;
 	uint32_t x_cell = width_screen / width_snake;
 	uint32_t y_cell = height_screen / height_snake;
-
+	osEvent event;
 	for (;;) {
+		event = osMessageGet(myQueue01Handle, 100);
+		while (event.status == osEventMessage) {
+			event = osMessageGet(myQueue01Handle, 100);
+		}
 		oled_Reset();
 		snake *head = (snake*) pvPortMalloc(sizeof(snake));
 		head->x = x_cell/2;
@@ -187,7 +191,7 @@ void StartDefaultTask(void const * argument)
 		}
 
 
-		osEvent event;
+
 		int16_t xR = -1, yR = -1;
 		uint8_t A = 1664525;
 		for (;;) {
@@ -327,6 +331,7 @@ void StartTask02(void const * argument)
 				direction = UP;
 				osMessagePut(myQueue01Handle, direction, 100);
 			}
+
 		}
 		osDelay(10);
 	}
