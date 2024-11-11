@@ -63,6 +63,7 @@ uint32_t random_seed();
 /* USER CODE BEGIN Variables */
 uint32_t seed = 326443256;
 uint32_t A = 2345345, C = 54217867, M = 4294967296;
+uint8_t direction = LEFT;
 /* USER CODE END Variables */
 osThreadId defaultTaskHandle;
 osThreadId myTask02Handle;
@@ -186,7 +187,6 @@ void StartDefaultTask(void const * argument)
 		}
 
 
-		uint8_t direction = LEFT;
 		osEvent event;
 		int16_t xR = -1, yR = -1;
 		uint8_t A = 1664525;
@@ -292,6 +292,7 @@ void StartDefaultTask(void const * argument)
 			current_node = current_node->prev;
 
 		}
+		direction = LEFT;
 
 	}
 
@@ -309,7 +310,6 @@ void StartTask02(void const * argument)
 {
   /* USER CODE BEGIN StartTask02 */
   /* Infinite loop */
-	uint8_t direction = LEFT;
 	for (;;) {
 		uint8_t Row[4] = {ROW4, ROW3, ROW2, ROW1};
 		for ( int i = 1; i < 4; i++ ) {
